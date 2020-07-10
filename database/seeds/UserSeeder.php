@@ -1,6 +1,7 @@
 <?php
 
 use App\DoctorProfile;
+use App\Enums\UserType;
 use App\PatientProfile;
 use App\Profile;
 use App\Specialty;
@@ -23,12 +24,14 @@ class UserSeeder extends Seeder
 		factory(User::class)->create([
 			'username' => 'admin',
 			'email' => 'admin@domain.com',
+			'type' => UserType::ADMIN,
 			'profileable_type' => Profile::class,
 			'profileable_id' => $profile->id
 		]);
 
 		factory(PatientProfile::class, 10)->create()->each(function ($patientProfile) {
 			factory(User::class)->create([
+				'type' => UserType::PATIENT,
 				'profileable_type' => PatientProfile::class,
 				'profileable_id' => $patientProfile->id
 			]);
@@ -39,6 +42,7 @@ class UserSeeder extends Seeder
 				'specialty_id' => $specialty->id
 			]);
 			factory(User::class)->create([
+				'type' => UserType::DOCTOR,
 				'profileable_type' => DoctorProfile::class,
 				'profileable_id' => $profile->id
 			]);

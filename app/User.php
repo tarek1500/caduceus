@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Enums\UserType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -16,7 +17,7 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'username', 'email', 'password', 'mobile', 'profileable_type', 'profileable_id'
+		'username', 'email', 'password', 'mobile', 'type', 'profileable_type', 'profileable_id'
 	];
 
 	/**
@@ -36,6 +37,18 @@ class User extends Authenticatable
 	protected $casts = [
 		'email_verified_at' => 'datetime'
 	];
+
+	/**
+	 * Perform any actions required after the model boots.
+	 *
+	 * @return void
+	 */
+	protected static function booted()
+	{
+		static::deleting(function ($user) {
+			$user->profileable()->delete();
+		});
+	}
 
 	/**
 	 * Get the user name.

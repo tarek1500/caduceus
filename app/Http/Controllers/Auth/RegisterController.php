@@ -64,7 +64,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $profile = PatientProfile::create([]);
+        $profile = PatientProfile::create();
 
         return User::create([
             'username' => $data['username'],

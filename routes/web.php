@@ -25,4 +25,9 @@ Route::get('home', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', 'ProfileController@index')->name('profile.index');
 	Route::put('profile', 'ProfileController@update')->name('profile.update');
+
+	Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard', 'as' => 'dashboard.'], function () {
+		Route::get('', 'DashboardController@index')->name('index');
+		Route::resource('users', 'UserController');
+	});
 });

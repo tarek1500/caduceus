@@ -55,6 +55,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if (Auth::user()->type === App\Enums\UserType::ADMIN)
+                                        <a class="dropdown-item" href="{{ route('dashboard.index') }}">
+                                            {{ __('Dashboard') }}
+                                        </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('profile.index') }}">
                                         {{ __('Profile') }}
                                     </a>
@@ -79,5 +84,7 @@
             @yield('content')
         </main>
     </div>
+
+    @yield('scripts')
 </body>
 </html>
