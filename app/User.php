@@ -16,7 +16,7 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-		'username', 'email', 'password', 'mobile', 'typeable_type', 'typeable_id'
+		'username', 'email', 'password', 'mobile', 'profileable_type', 'profileable_id'
 	];
 
 	/**
@@ -36,6 +36,16 @@ class User extends Authenticatable
 	protected $casts = [
 		'email_verified_at' => 'datetime'
 	];
+
+	/**
+	 * Get the user name.
+	 *
+	 * @return string
+	 */
+	public function getNameAttribute()
+	{
+		return trim($this->profileable->first_name . ' ' . $this->profileable->last_name);
+	}
 
 	/**
 	 * One-to-one relationship to the profile.

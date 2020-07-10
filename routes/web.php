@@ -20,4 +20,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('profile', 'ProfileController@index')->name('profile.index');
+	Route::put('profile', 'ProfileController@update')->name('profile.update');
+});
