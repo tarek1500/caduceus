@@ -36,14 +36,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('appointments.index') }}">{{ __('Appointment') }}</a>
-                        </li>
-                        @if (Auth::user()->type === App\Enums\UserType::DOCTOR)
+                        @auth
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('cases.index') }}">{{ __('Cases') }}</a>
+                                <a class="nav-link" href="{{ route('appointments.index') }}">{{ __('Appointment') }}</a>
                             </li>
-                        @endif
+                            @if (Auth::user()->type === App\Enums\UserType::DOCTOR)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('cases.index') }}">{{ __('Cases') }}</a>
+                                </li>
+                            @endif
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

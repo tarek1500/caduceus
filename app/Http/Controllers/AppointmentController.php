@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Appointment;
 use App\Enums\AppointmentStatus;
 use App\Http\Requests\AppointmentRequest;
+use App\Notifications\AppointmentChanged;
 use App\Pain;
 use Illuminate\Http\Request;
 
@@ -94,11 +95,11 @@ class AppointmentController extends Controller
 	{
 		if ($request->user()->id === $appointment->patient_id && $appointment->status === AppointmentStatus::APPROVED && $appointment->date > now())
 		{
-			// Send notification
-
 			$appointment->update([
 				'status' => AppointmentStatus::CANCELED
 			]);
+			$appointment->patient->notify(new AppointmentChanged($appointment));
+			$appointment->doctor->notify(new AppointmentChanged($appointment));
 
 			return redirect()->route('appointments.index')->with([
 				'alert-class' => 'alert-success',

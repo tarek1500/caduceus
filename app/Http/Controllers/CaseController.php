@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Appointment;
 use App\Enums\AppointmentStatus;
+use App\Notifications\AppointmentChanged;
 use Illuminate\Http\Request;
 
 class CaseController extends Controller
@@ -59,11 +60,11 @@ class CaseController extends Controller
 	{
 		if ($request->user()->id === $case->doctor_id && $case->status === AppointmentStatus::APPROVED && $case->date > now())
 		{
-			// Send notification
-
 			$case->update([
 				'status' => AppointmentStatus::CANCELED
 			]);
+			$case->patient->notify(new AppointmentChanged($case));
+			$case->doctor->notify(new AppointmentChanged($case));
 
 			return redirect()->route('cases.index')->with([
 				'alert-class' => 'alert-success',

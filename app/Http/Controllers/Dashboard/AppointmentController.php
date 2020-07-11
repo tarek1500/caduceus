@@ -8,6 +8,7 @@ use App\Enums\AppointmentStatus;
 use App\Enums\UserType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AppointmentRequest;
+use App\Notifications\AppointmentChanged;
 use App\Pain;
 use App\User;
 
@@ -53,7 +54,7 @@ class AppointmentController extends Controller
 	{
 		$data = $request->only(['patient', 'doctor', 'date', 'pain']);
 
-		Appointment::create([
+		$appointment = Appointment::create([
 			'patient_id' => $data['patient'],
 			'doctor_id' => $data['doctor'],
 			'date' => $data['date'],
@@ -61,7 +62,8 @@ class AppointmentController extends Controller
 			'pain_id' => $data['pain']
 		]);
 
-		// Send notification
+		$appointment->patient->notify(new AppointmentChanged($appointment));
+		$appointment->doctor->notify(new AppointmentChanged($appointment));
 
 		return redirect()->route('dashboard.appointments.index')->with([
 			'alert-class' => 'alert-success',
@@ -118,8 +120,8 @@ class AppointmentController extends Controller
 			'date' => $data['date'],
 			'status' => AppointmentStatus::APPROVED
 		]);
-
-		// Send notification
+		$appointment->patient->notify(new AppointmentChanged($appointment));
+		$appointment->doctor->notify(new AppointmentChanged($appointment));
 
 		return redirect()->route('dashboard.appointments.show', $appointment->id)->with([
 			'alert-class' => 'alert-success',
