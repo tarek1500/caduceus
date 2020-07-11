@@ -37,17 +37,26 @@
                             <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                         </li>
                         @auth
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('appointments.index') }}">{{ __('Appointment') }}</a>
-                            </li>
+                            @if (Auth::user()->type !== App\Enums\UserType::ADMIN)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('appointments.index') }}">{{ __('Appointment') }}</a>
+                                </li>
+                            @endif
                             @if (Auth::user()->type === App\Enums\UserType::DOCTOR)
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('cases.index') }}">{{ __('Cases') }}</a>
                                 </li>
                             @endif
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('notifications.index') }}">{{ __('Notifications') }}</a>
-                            </li>
+                            @if (Auth::user()->type !== App\Enums\UserType::ADMIN)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('notifications.index') }}">{{ __('Notifications') }}</a>
+                                </li>
+                            @endif
+                            @if (Auth::user()->type === App\Enums\UserType::ADMIN)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('dashboard.index') }}">{{ __('Dashboard') }}</a>
+                                </li>
+                            @endif
                         @endauth
                     </ul>
 
@@ -70,11 +79,6 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @if (Auth::user()->type === App\Enums\UserType::ADMIN)
-                                        <a class="dropdown-item" href="{{ route('dashboard.index') }}">
-                                            {{ __('Dashboard') }}
-                                        </a>
-                                    @endif
                                     <a class="dropdown-item" href="{{ route('profile.index') }}">
                                         {{ __('Profile') }}
                                     </a>
