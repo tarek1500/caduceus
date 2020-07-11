@@ -45,6 +45,9 @@
                                     <a class="nav-link" href="{{ route('cases.index') }}">{{ __('Cases') }}</a>
                                 </li>
                             @endif
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('notifications.index') }}">{{ __('Notifications') }}</a>
+                            </li>
                         @endauth
                     </ul>
 

@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::resource('appointments', 'AppointmentController')->only(['index', 'create', 'store', 'show', 'update']);
 	Route::resource('cases', 'CaseController')->middleware('authorize:' . UserType::DOCTOR)->only(['index', 'show', 'update']);
+	Route::resource('notifications', 'NotificationController')->only(['index', 'show']);
 
 	Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard', 'as' => 'dashboard.', 'middleware' => 'authorize:' . UserType::ADMIN], function () {
 		Route::get('', 'DashboardController@index')->name('index');

@@ -16,7 +16,7 @@
 						<div class="form-group row">
 							<label for="pain" class="col-md-2 col-form-label text-md-right">Pain</label>
 							<div class="col-md-9">
-								<select id="pain" class="form-control @error('pain') is-invalid @enderror" name="pain">
+								<select id="pain" class="form-control @error('pain') is-invalid @enderror" name="pain" required autofocus>
 									@foreach ($pains as $pain)
 										<option value="{{ $pain->id }}" {{ old('pain') == $pain->id ? 'selected' : '' }}>{{ $pain->name }}</option>
 									@endforeach

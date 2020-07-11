@@ -17,7 +17,7 @@
 						<div class="form-group row">
 							<label for="doctor" class="col-md-2 col-form-label text-md-right">Doctor</label>
 							<div class="col-md-9">
-								<select id="doctor" class="form-control @error('doctor') is-invalid @enderror" name="doctor" required>
+								<select id="doctor" class="form-control @error('doctor') is-invalid @enderror" name="doctor" required autofocus>
 									@foreach ($doctors as $doctor)
 										<option value="{{ $doctor->id }}" {{ old('doctor') == $doctor->id ? 'selected' : '' }}>{{ $doctor->name }}</option>
 									@endforeach

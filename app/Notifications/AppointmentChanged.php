@@ -81,7 +81,9 @@ class AppointmentChanged extends Notification implements ShouldQueue
 	public function toArray($notifiable)
 	{
 		return [
-			'appointment_id' => $this->appointment->id
+			'appointment_id' => $this->appointment->id,
+			'appointment_pain' => $this->appointment->pain->name,
+			'appointment_date' => $this->appointment->date->toDayDateTimeString()
 		];
 	}
 }
