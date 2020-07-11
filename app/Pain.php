@@ -25,4 +25,15 @@ class Pain extends Model
 	{
 		return $this->belongsTo(Specialty::class);
 	}
+
+	/**
+	 * One-to-many relationship to appointments.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 *
+	 */
+	public function appointments()
+	{
+		return $this->hasMany(Appointment::class);
+	}
 }

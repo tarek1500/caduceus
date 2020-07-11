@@ -12,7 +12,7 @@ class Appointment extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'patient_id', 'doctor_id', 'date'
+		'patient_id', 'doctor_id', 'date', 'status', 'pain_id'
 	];
 
 	/**
@@ -44,5 +44,16 @@ class Appointment extends Model
 	public function doctor()
 	{
 		return $this->belongsTo(User::class, 'doctor_id');
+	}
+
+	/**
+	 * Many-to-one relationship to the pain.
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 *
+	 */
+	public function pain()
+	{
+		return $this->belongsTo(Pain::class);
 	}
 }

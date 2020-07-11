@@ -21,10 +21,8 @@ class UserController extends Controller
 	 */
 	public function index()
 	{
-		$users = User::paginate(10);
-
-		return view('dashboard.user.index', [
-			'users' => $users
+		return view('dashboard.users.index', [
+			'users' => User::paginate(10)
 		]);
 	}
 
@@ -35,7 +33,7 @@ class UserController extends Controller
 	 */
 	public function create()
 	{
-		return view('dashboard.user.create', [
+		return view('dashboard.users.create', [
 			'specialties' => Specialty::all()
 		]);
 	}
@@ -82,7 +80,7 @@ class UserController extends Controller
 	 */
 	public function show(User $user)
 	{
-		return view('dashboard.user.show', [
+		return view('dashboard.users.show', [
 			'user' => $user->load('profileable')
 		]);
 	}
@@ -96,7 +94,7 @@ class UserController extends Controller
 	 */
 	public function edit(User $user)
 	{
-		return view('dashboard.user.edit', [
+		return view('dashboard.users.edit', [
 			'user' => $user->load('profileable')
 		] + ($user->type === UserType::DOCTOR ? [
 			'specialties' => Specialty::all()

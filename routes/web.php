@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', 'ProfileController@index')->name('profile.index');
 	Route::put('profile', 'ProfileController@update')->name('profile.update');
 
+	Route::resource('appointments', 'AppointmentController')->only(['index', 'create', 'store', 'show', 'update']);
+
 	Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard', 'as' => 'dashboard.'], function () {
 		Route::get('', 'DashboardController@index')->name('index');
 		Route::resource('users', 'UserController');
