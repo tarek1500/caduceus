@@ -39,6 +39,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('appointments.index') }}">{{ __('Appointment') }}</a>
                         </li>
+                        @if (Auth::user()->type === App\Enums\UserType::DOCTOR)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('cases.index') }}">{{ __('Cases') }}</a>
+                            </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
