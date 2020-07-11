@@ -8,6 +8,7 @@
 				<div class="card-header">Dashboard</div>
 				<div class="card-body">
 					<a class="btn btn-primary btn-block" href="{{ route('dashboard.users.index') }}" role="button">Users</a>
+					<a class="btn btn-primary btn-block" href="{{ route('dashboard.appointments.index') }}" role="button">Appointments</a>
 				</div>
 			</div>
 		</div>

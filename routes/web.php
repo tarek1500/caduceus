@@ -31,5 +31,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard', 'as' => 'dashboard.'], function () {
 		Route::get('', 'DashboardController@index')->name('index');
 		Route::resource('users', 'UserController');
+		Route::resource('appointments', 'AppointmentController');
 	});
 });

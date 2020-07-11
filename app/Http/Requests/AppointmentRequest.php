@@ -29,5 +29,21 @@ class AppointmentRequest extends FormRequest
 				'pain' => 'required|integer|exists:pains,id'
 			];
 		}
+		else if ($this->routeIs('dashboard.appointments.store'))
+		{
+			return [
+				'patient' => 'required|integer|exists:users,id',
+				'pain' => 'required|integer|exists:pains,id',
+				'doctor' => 'required|integer|exists:users,id',
+				'date' => 'required|date|after:now'
+			];
+		}
+		else if ($this->routeIs('dashboard.appointments.update'))
+		{
+			return [
+				'doctor' => 'required|integer|exists:users,id',
+				'date' => 'required|date|after:now'
+			];
+		}
 	}
 }
